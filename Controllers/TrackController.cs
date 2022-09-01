@@ -43,6 +43,15 @@ namespace WSEIbackendREST.Controllers
         [HttpPost]
         public async Task<ActionResult<TrackDto>> CreateItemAsync(CreateTrackDto itemDto)
         {
+            var existingItems = await repository.GetItemsAsync();
+
+            var existingItem = existingItems.Select(i => i).Where(i => i.Name == itemDto.Name).FirstOrDefault();
+
+            if (existingItem != null)
+            {
+                return Conflict("Duplicate object");
+            }
+
             Track item = new()
             {
                 Id = Guid.NewGuid(),

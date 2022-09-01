@@ -43,6 +43,15 @@ namespace WSEIbackendREST.Controllers
         [HttpPost]
         public async Task<ActionResult<EmployeeDto>> CreateItemAsync(CreateEmployeeDto itemDto)
         {
+            var existingItems = await repository.GetItemsAsync();
+
+            var existingItem = existingItems.Select(i => i).Where(i => i.Pesel == itemDto.Pesel).FirstOrDefault();
+
+            if (existingItem != null)
+            {
+                return Conflict("Duplicate object");
+            }
+
             Employee item = new()
             {
                 Id = Guid.NewGuid(),
