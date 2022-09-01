@@ -12,5 +12,6 @@ namespace WSEIbackendREST.Repositories
         Task CreateItemAsync(Item item);
         Task UpdateItemAsync(Item item);
         Task DeleteItemAsync(Guid id);
+        Task DeleteAllItemsAsync();
     }
 }

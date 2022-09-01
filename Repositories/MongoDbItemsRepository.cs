@@ -32,6 +32,15 @@ namespace WSEIbackendREST.Repositories
             await itemsCollection.DeleteOneAsync(filter);
         }
 
+        public async Task DeleteAllItemsAsync()
+        {
+            foreach (var item in itemsCollection.Find(new BsonDocument()).ToList())
+            {
+                var filter = filterBuilder.Eq(titem => titem.Id, item.Id);
+                await itemsCollection.DeleteManyAsync(filter);
+            }
+        }
+
         public async Task<Item> GetItemAsync(Guid id)
         {
             var filter = filterBuilder.Eq(item => item.Id, id);

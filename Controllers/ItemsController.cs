@@ -91,5 +91,18 @@ namespace WSEIbackendREST.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("all")]
+        public async Task<ActionResult> DeleteAllItemsAsync()
+        {
+            var existingItems = await repository.GetItemsAsync();
+
+            foreach (var item in existingItems)
+            {
+                await repository.DeleteItemAsync(item.Id);
+            }
+
+            return NoContent();
+        }
     }
 }

@@ -48,5 +48,16 @@ namespace WSEIbackendREST.Repositories
             items.RemoveAt(index);
             await Task.CompletedTask;
         }
+
+        public async Task DeleteAllItemsAsync()
+        {
+            foreach (var item in items)
+            {
+                var index = items.FindIndex(existingItem => existingItem.Id == item.Id);
+                items.RemoveAt(index);
+            }
+
+            await Task.CompletedTask;
+        }
     }
 }
