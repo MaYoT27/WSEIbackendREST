@@ -1,0 +1,16 @@
+1. Utworzenie projektu i dodanie podstawowych części projektu gotowego do uruchomienia z poziomu Visual Studio oraz Visual Studio Code
+2. Stworzenie encji, repozytorium oraz podstawowego kontrolera z GETem
+3. Dodanie dependency injection do projektu
+4. Rejestracja serwisu jako Singleton oraz utworzenie DTO (Data Transfer Object)
+5. Rozbudowa projektu o pełny CRUD (dodanie dodawania, aktualizowania i usuwania obiektów)
+6. Dodanie połączenia do MongoDB
+7. Obsługa CRUDa na bazie danych MongoDB
+8. Wymiana synchronicznego działania CRUDa na asynchroniczny
+9. Dodanie autentykacji do bazy danych MongoDB i obsłużenie hasła za pomocą .NET Secret Manager
+10. Dodanie health checków do działania serwisu jak i połączenia z bazą MongoDB
+11. Dodanie obsługi Dockera do hostowania buildu produkcyjnego
+12. Dodanie plików konfiguracyjnych Kubernetes
+13. Rozbudowa CRUDa o usuwanie wszystkich rekordów na raz
+14. Walidacja duplikatów
+15. Rozbudowa projektu o nowe tabele wraz z kontrolerami
+16. Stworzenie opisu i prezentacja projektu
