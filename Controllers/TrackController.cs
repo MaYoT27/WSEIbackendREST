@@ -10,25 +10,25 @@ using System.Threading.Tasks;
 namespace WSEIbackendREST.Controllers
 {
     [ApiController]
-    [Route("items")]
-    public class ItemsController : ControllerBase
+    [Route("tracks")]
+    public class TrackController : ControllerBase
     {
-        private readonly IItemsRepository repository;
+        private readonly ITrackRepository repository;
 
-        public ItemsController(IItemsRepository repository)
+        public TrackController(ITrackRepository repository)
         {
             this.repository = repository;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ItemDto>> GetItemsAsync()
+        public async Task<IEnumerable<TrackDto>> GetItemsAsync()
         {
             var items = (await repository.GetItemsAsync()).Select(item => item.AsDto());
             return items;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ItemDto>> GetItemAsync(Guid id)
+        public async Task<ActionResult<TrackDto>> GetItemAsync(Guid id)
         {
             var item = await repository.GetItemAsync(id);
 
@@ -41,22 +41,13 @@ namespace WSEIbackendREST.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ItemDto>> CreateItemAsync(CreateItemDto itemDto)
+        public async Task<ActionResult<TrackDto>> CreateItemAsync(CreateTrackDto itemDto)
         {
-            var existingItems = await repository.GetItemsAsync();
-
-            var existingItem = existingItems.Select(i => i).Where(i => i.Name == itemDto.Name).FirstOrDefault();
-
-            if (existingItem != null)
-            {
-                return Conflict("Duplicate object");
-            }
-
-            Item item = new()
+            Track item = new()
             {
                 Id = Guid.NewGuid(),
                 Name = itemDto.Name,
-                Price = itemDto.Price,
+                Length = itemDto.Length,
                 CreatedDate = DateTimeOffset.UtcNow
             };
 
@@ -66,7 +57,7 @@ namespace WSEIbackendREST.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateItemAsync(Guid id, UpdateItemDto itemDto)
+        public async Task<ActionResult> UpdateItemAsync(Guid id, UpdateTrackDto itemDto)
         {
             var existingItem = await repository.GetItemAsync(id);
 
@@ -75,10 +66,10 @@ namespace WSEIbackendREST.Controllers
                 return NotFound();
             }
 
-            Item updatedItem = existingItem with
+            Track updatedItem = existingItem with
             {
                 Name = itemDto.Name,
-                Price = itemDto.Price
+                Length = itemDto.Length
             };
 
             await repository.UpdateItemAsync(updatedItem);

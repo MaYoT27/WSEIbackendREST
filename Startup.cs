@@ -46,6 +46,8 @@ namespace WSEIbackendREST
             });
 
             services.AddSingleton<IItemsRepository, MongoDbItemsRepository>();
+            services.AddSingleton<ITrackRepository, MongoDbTrackRepository>();
+            services.AddSingleton<IEmployeeRepository, MongoDbEmployeeRepository>();
 
             services.AddControllers(options =>
             {
