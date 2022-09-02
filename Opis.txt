@@ -12,9 +12,11 @@ Aby uruchomić projekt potrzebny jest:
 -Docker (opcjonalnie z rozszerzeniem Kubernetes)
 
 1. Po pobraniu repozytorium z GitHuba na dysk należy uruchomić katalog w Visual Studio Code
-2. Za pomocą terminala należy wystartować bazę danych (przy uruchomionym i poprawnie działającym Dockerze):
+2. Za pomocą terminala należy dodanie sieć net5wsei
+docker network create net5wsei
+3. Za pomocą terminala należy wystartować bazę danych (przy uruchomionym i poprawnie działającym Dockerze):
 docker run -d --rm --name mongo -p 27017:27017 -v mongodbdata:/data/db -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=blackwhitePC0 --network=net5wsei mongo
-3. Za pomocą terminala należy uruchomić build produkcyjny przy pomocy Dockera z publicznego repozytorium:
+4. Za pomocą terminala należy uruchomić build produkcyjny przy pomocy Dockera z publicznego repozytorium:
 docker run -it --rm -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:Password=blackwhitePC0 --network=net5wsei mayot27/wsei:v1
 
 3. Obsługa
